@@ -3,6 +3,9 @@ import {
   Token,
   TokenBalance,
   TokenDayData,
+  IporOracle,
+  Joseph,
+  MiltonStorage,
 } from "../generated/schema";
 import { BigInt, Address, store, log } from "@graphprotocol/graph-ts";
 
@@ -126,4 +129,42 @@ export function modifyTokenDayDataTransfer(
   tokenDayData.transferVolume = tokenDayData.transferVolume.plus(value);
   tokenDayData.save();
   return;
+}
+
+// Helper function to get IporOracle by address
+export function getIporOracleByAddress(iporOracleAddress: Address): IporOracle {
+  let iporOracleId = iporOracleAddress.toHex();
+  let iporOracle = IporOracle.load(iporOracleId);
+  if (iporOracle == null) {
+    iporOracle = new IporOracle(iporOracleId);
+    iporOracle.address = iporOracleAddress.toHex();
+  }
+  iporOracle.save();
+  return iporOracle;
+}
+
+// Helper function to get Joseph by address
+export function getJosephByAddress(josephAddress: Address): Joseph {
+  let josephId = josephAddress.toHex();
+  let joseph = Joseph.load(josephId);
+  if (joseph == null) {
+    joseph = new Joseph(josephId);
+    joseph.address = josephAddress.toHex();
+  }
+  joseph.save();
+  return joseph;
+}
+
+// Helper function to get MiltonStorage by address
+export function getMiltonStorageByAddress(
+  miltonStorageAddress: Address
+): MiltonStorage {
+  let miltonStorageId = miltonStorageAddress.toHex();
+  let miltonStorage = MiltonStorage.load(miltonStorageId);
+  if (miltonStorage == null) {
+    miltonStorage = new MiltonStorage(miltonStorageId);
+    miltonStorage.address = miltonStorageAddress.toHex();
+  }
+  miltonStorage.save();
+  return miltonStorage;
 }

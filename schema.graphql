@@ -40,3 +40,86 @@ type TransferEvent implements TokenEvent @entity {
   amount: BigInt!
   timestamp: BigInt!
 }
+
+type Asset @entity {
+  id: ID!
+  name: String!
+}
+
+type Updater @entity {
+  id: ID!
+  name: String!
+}
+
+type IporIndex @entity {
+  id: ID!
+  assets: [Asset!]
+  updaters: [Updater!]
+}
+
+type IporOracle @entity {
+  id: ID!
+  address: String!
+  admin: String!
+  beacon: String!
+  owner: String!
+  paused: Boolean!
+  implementation: String!
+}
+
+type IporOracleFacadeDataProvider @entity {
+  id: ID!
+  address: String!
+  admin: String!
+  beacon: String!
+  owner: String!
+  implementation: String!
+}
+
+type Joseph @entity {
+  id: ID!
+  address: String!
+  admin: String!
+  beacon: String!
+  charlieTreasury: String!
+  charlieTreasuryManager: String!
+  owner: String!
+  paused: Boolean!
+}
+
+type MiltonFacadeDataProvider @entity {
+  id: ID!
+  address: String!
+  admin: String!
+  beacon: String!
+  owner: String!
+  implementation: String!
+}
+
+type MiltonSpreadModel @entity {
+  id: ID!
+  address: String!
+  owner: String!
+}
+
+type MiltonStorage @entity {
+  id: ID!
+  address: String!
+  admin: String!
+  beacon: String!
+  joseph: String!
+  milton: String!
+  owner: String!
+  paused: Boolean!
+  implementation: String!
+}
+
+type MiltonV2 @entity {
+  id: ID!
+  admin: String!
+  beacon: String!
+  joseph: String!
+  owner: String!
+  paused: Boolean!
+  implementation: String!
+}
