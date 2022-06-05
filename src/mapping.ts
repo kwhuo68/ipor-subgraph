@@ -13,7 +13,17 @@ import {
   Unpaused,
   Upgraded,
 } from "../generated/IporOracle/IporOracle";
+import {
+  CharlieTreasuryChanged,
+  CharlieTreasuryManagerChanged,
+  ProvideLiquidity,
+  Redeem,
+  TreasuryChanged,
+  TreasuryManagerChanged,
+} from "../generated/JosephDAI/Joseph";
 import { Approval, Burn, Mint, Transfer } from "../generated/ipDAI/ipDAI";
+import { MiltonChanged } from "../generated/MiltonStorageDai/MiltonStorage";
+import { CloseSwap, OpenSwap } from "../generated/MiltonV2Dai/MiltonV2";
 import {
   getAccountByAddress,
   modifyTokenBalance,
@@ -25,7 +35,6 @@ import {
 const zeroAddress = "0x0000000000000000000000000000000000000000";
 
 // IporOracle
-
 export function handleAdminChanged(event: AdminChanged): void {}
 export function handleAppointedToTransferOwnership(
   event: AppointedToTransferOwnership
@@ -43,8 +52,21 @@ export function handlePaused(event: Paused): void {}
 export function handleUnpaused(event: Unpaused): void {}
 export function handleUpgraded(event: Upgraded): void {}
 
-// LP Token
+// Joseph
+export function handleCharlieTreasuryChanged(
+  event: CharlieTreasuryChanged
+): void {}
+export function handleCharlieTreasuryManagerChanged(
+  event: CharlieTreasuryManagerChanged
+): void {}
+export function handleProvideLiquidity(event: ProvideLiquidity): void {}
+export function handleRedeem(event: Redeem): void {}
+export function handleTreasuryChanged(event: TreasuryChanged): void {}
+export function handleTreasuryManagerChanged(
+  event: TreasuryManagerChanged
+): void {}
 
+// LP Token
 export function handleApproval(event: Approval): void {}
 export function handleBurn(event: Burn): void {}
 export function handleMint(event: Mint): void {}
@@ -69,4 +91,9 @@ export function handleTransfer(event: Transfer): void {
   }
 }
 
-// Joseph
+// MiltonStorage
+export function handleMiltonChanged(event: MiltonChanged): void {}
+
+// MiltonV2
+export function handleCloseSwap(event: CloseSwap): void {}
+export function handleOpenSwap(event: OpenSwap): void {}
