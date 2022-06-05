@@ -3,11 +3,11 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: LporOracle
+    name: IporOracle
     network: rinkeby
     source:
       address: "0x1dF7084A1C9905178D539753c066a21E9cCfB90c"
-      abi: lporOracle
+      abi: IporOracle
       startBlock: 9500000
     mapping:
       kind: ethereum/events
@@ -27,8 +27,8 @@ dataSources:
         - Unpaused
         - Upgraded
       abis:
-        - name: lporOracle
-          file: ./abis/lporOracle.json
+        - name: IporOracle
+          file: ./abis/IporOracle.json
       eventHandlers:
         - event: AdminChanged(address,address)
           handler: handleAdminChanged
@@ -52,15 +52,15 @@ dataSources:
           handler: handlePaused
         - event: Unpaused(address)
           handler: handleUnpaused
-        - event: Upgraded(address indexed)
+        - event: Upgraded(indexed address)
           handler: handleUpgraded
       file: ./src/mapping.ts
   - kind: ethereum
-    name: LporOracleFacadeDataProvider
+    name: IporOracleFacadeDataProvider
     network: rinkeby
     source:
       address: "0xee5e963564c58A733c7E3779f79d71471e7Aab07"
-      abi: lporOracleFacadeDataProvider
+      abi: IporOracleFacadeDataProvider
       startBlock: 9500000
     mapping:
       kind: ethereum/events
@@ -73,8 +73,8 @@ dataSources:
         - OwnershipTransferred
         - Upgraded
       abis:
-        - name: LporOracleFacadeDataProvider
-          file: ./abis/lporOracleFacadeDataProvider.json
+        - name: IporOracleFacadeDataProvider
+          file: ./abis/IporOracleFacadeDataProvider.json
       eventHandlers:
         - event: AdminChanged(address,address)
           handler: handleAdminChanged
@@ -84,7 +84,7 @@ dataSources:
           handler: handleBeaconUpgraded
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-        - event: Upgraded(address indexed)
+        - event: Upgraded(indexed address)
           handler: handleUpgraded
       file: ./src/mapping.ts
   - kind: ethereum
@@ -134,13 +134,13 @@ dataSources:
           handler: handleProvideLiquidity
         - event: Redeem(uint256,address,address,uint256,uint256,uint256,uint256,uint256)
           handler: handleRedeem
-        - event: TreasuryChanged(address indexed,address indexed,address indexed)
+        - event: TreasuryChanged(indexed address,indexed address,indexed address)
           handler: handleTreasuryChanged
-        - event: TreasuryManagerChanged(address indexed,address indexed,address indexed)
+        - event: TreasuryManagerChanged(indexed address,indexed address,indexed address)
           handler: handleTreasuryManagerChanged
         - event: Unpaused(address)
           handler: handleUnpaused
-        - event: Upgraded(address indexed)
+        - event: Upgraded(indexed address)
           handler: handleUpgraded
       file: ./src/mapping.ts
   - kind: ethereum
@@ -207,7 +207,7 @@ dataSources:
           handler: handleBeaconUpgraded
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-        - event: Upgraded(address indexed)
+        - event: Upgraded(indexed address)
           handler: handleUpgraded
       file: ./src/mapping.ts
   - kind: ethereum
@@ -274,7 +274,7 @@ dataSources:
           handler: handlePaused
         - event: Unpaused(address)
           handler: handleUnpaused
-        - event: Upgraded(address indexed)
+        - event: Upgraded(indexed address)
           handler: handleUpgraded
       file: ./src/mapping.ts
   - kind: ethereum
@@ -309,11 +309,11 @@ dataSources:
           handler: handleAppointedToTransferOwnership
         - event: BeaconUpgraded(indexed address)
           handler: handleBeaconUpgraded
-        - event: CloseSwap(uint256 indexed,address,uint256,address,uint256,uint256)
+        - event: CloseSwap(indexed uint256,address,uint256,address,uint256,uint256)
           handler: handleCloseSwap
-        - event: JosephChanged(address,address,address)
+        - event: JosephChanged(indexed address,indexed address,indexed address)
           handler: handleJosephChanged
-        - event: OpenSwap(uint256 indexed,address indexed,address,uint8,tuple(uint256,uint256,uint256,uint256,uint256,uint256,uint256),uint256,uint256,tuple(uint256,uint256,uint256,uint256))
+        - event: OpenSwap(indexed uint256,indexed address,address,uint8,(uint256,uint256,uint256,uint256,uint256,uint256,uint256),uint256,uint256,(uint256,uint256,uint256,uint256))
           handler: handleOpenSwap
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
@@ -321,6 +321,6 @@ dataSources:
           handler: handlePaused
         - event: Unpaused(address)
           handler: handleUnpaused
-        - event: Upgraded(address indexed)
+        - event: Upgraded(indexed address)
           handler: handleUpgraded
       file: ./src/mapping.ts

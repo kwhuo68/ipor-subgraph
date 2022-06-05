@@ -1,12 +1,19 @@
 import { BigInt } from "@graphprotocol/graph-ts";
 import {
+  AdminChanged,
   AppointedToTransferOwnership,
-  Approval,
-  Burn,
-  Mint,
+  BeaconUpgraded,
+  IporIndexAddAsset,
+  IporIndexAddUpdater,
+  IporIndexRemoveAsset,
+  IporIndexRemoveUpdater,
+  IporIndexUpdate,
   OwnershipTransferred,
-  Transfer,
-} from "../generated/ipDAI/ipDAI";
+  Paused,
+  Unpaused,
+  Upgraded,
+} from "../generated/IporOracle/IporOracle";
+import { Approval, Burn, Mint, Transfer } from "../generated/ipDAI/ipDAI";
 import {
   getAccountByAddress,
   modifyTokenBalance,
@@ -17,10 +24,10 @@ import {
 
 const zeroAddress = "0x0000000000000000000000000000000000000000";
 
-// lporOracle
+// IporOracle
 
 export function handleAdminChanged(event: AdminChanged): void {}
-export function AppointedToTransferOwnership(
+export function handleAppointedToTransferOwnership(
   event: AppointedToTransferOwnership
 ): void {}
 export function handleBeaconUpgraded(event: BeaconUpgraded): void {}
@@ -35,15 +42,12 @@ export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
 export function handlePaused(event: Paused): void {}
 export function handleUnpaused(event: Unpaused): void {}
 export function handleUpgraded(event: Upgraded): void {}
+
 // LP Token
 
-export function handleAppointedToTransferOwnership(
-  event: AppointedToTransferOwnership
-): void {}
 export function handleApproval(event: Approval): void {}
 export function handleBurn(event: Burn): void {}
 export function handleMint(event: Mint): void {}
-export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
 export function handleTransfer(event: Transfer): void {
   let tokenAddress = event.address;
   let from = event.params.from;
