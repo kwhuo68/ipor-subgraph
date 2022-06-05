@@ -1,29 +1,326 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: MiltonDAI
+    name: LporOracle
     network: rinkeby
     source:
-      address: "0x021b68e559e837D8f10A4f0b1bCe025150fb1497"
-      abi: MiltonDAI
+      address: "0x1dF7084A1C9905178D539753c066a21E9cCfB90c"
+      abi: lporOracle
+      startBlock: 9500000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
         - AdminChanged
+        - AppointedToTransferOwnership
         - BeaconUpgraded
+        - IporIndexAddAsset
+        - IporIndexAddUpdater
+        - IporIndexRemoveAsset
+        - IporIndexRemoveUpdater
+        - IporIndexUpdate
+        - OwnershipTransferred
+        - Paused
+        - Unpaused
         - Upgraded
       abis:
-        - name: MiltonDAI
-          file: ./abis/MiltonDAI.json
+        - name: lporOracle
+          file: ./abis/lporOracle.json
       eventHandlers:
         - event: AdminChanged(address,address)
           handler: handleAdminChanged
+        - event: AppointedToTransferOwnership(indexed address)
+          handler: handleAppointedToTransferOwnership
         - event: BeaconUpgraded(indexed address)
           handler: handleBeaconUpgraded
-        - event: Upgraded(indexed address)
+        - event: IporIndexAddAsset(address,uint256,uint256,uint256)
+          handler: handleIporIndexAddAsset
+        - event: IporIndexAddUpdater(address)
+          handler: handleIporIndexAddUpdater
+        - event: IporIndexRemoveAsset(address)
+          handler: handleIporIndexRemoveAsset
+        - event: IporIndexRemoveUpdater(address)
+          handler: handleIporIndexRemoveUpdater
+        - event: IporIndexUpdate(address,uint256,uint256,uint256,uint256,uint256)
+          handler: handleIporIndexUpdate
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(address)
+          handler: handlePaused
+        - event: Unpaused(address)
+          handler: handleUnpaused
+        - event: Upgraded(address indexed)
+          handler: handleUpgraded
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: LporOracleFacadeDataProvider
+    network: rinkeby
+    source:
+      address: "0xee5e963564c58A733c7E3779f79d71471e7Aab07"
+      abi: lporOracleFacadeDataProvider
+      startBlock: 9500000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AdminChanged
+        - AppointedToTransferOwnership
+        - BeaconUpgraded
+        - OwnershipTransferred
+        - Upgraded
+      abis:
+        - name: LporOracleFacadeDataProvider
+          file: ./abis/lporOracleFacadeDataProvider.json
+      eventHandlers:
+        - event: AdminChanged(address,address)
+          handler: handleAdminChanged
+        - event: AppointedToTransferOwnership(indexed address)
+          handler: handleAppointedToTransferOwnership
+        - event: BeaconUpgraded(indexed address)
+          handler: handleBeaconUpgraded
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Upgraded(address indexed)
+          handler: handleUpgraded
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: JosephDAI
+    network: rinkeby
+    source:
+      address: "0x70928B27463F9fd6fD84ab2b53966Bcfd335B546"
+      abi: Joseph
+      startBlock: 9500000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AdminChanged
+        - AppointedToTransferOwnership
+        - BeaconUpgraded
+        - CharlieTreasuryChanged
+        - CharlieTreasuryManagerChanged
+        - OwnershipTransferred
+        - Paused
+        - ProvideLiquidity
+        - Redeem
+        - TreasuryChanged
+        - TreasuryManagerChanged
+        - Unpaused
+        - Upgraded
+      abis:
+        - name: Joseph
+          file: ./abis/Joseph.json
+      eventHandlers:
+        - event: AdminChanged(address,address)
+          handler: handleAdminChanged
+        - event: AppointedToTransferOwnership(indexed address)
+          handler: handleAppointedToTransferOwnership
+        - event: BeaconUpgraded(indexed address)
+          handler: handleBeaconUpgraded
+        - event: CharlieTreasuryChanged(indexed address,indexed address,indexed address)
+          handler: handleCharlieTreasuryChanged
+        - event: CharlieTreasuryManagerChanged(indexed address,indexed address,indexed address)
+          handler: handleCharlieTreasuryManagerChanged
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(address)
+          handler: handlePaused
+        - event: ProvideLiquidity(uint256,address,address,uint256,uint256,uint256)
+          handler: handleProvideLiquidity
+        - event: Redeem(uint256,address,address,uint256,uint256,uint256,uint256,uint256)
+          handler: handleRedeem
+        - event: TreasuryChanged(address indexed,address indexed,address indexed)
+          handler: handleTreasuryChanged
+        - event: TreasuryManagerChanged(address indexed,address indexed,address indexed)
+          handler: handleTreasuryManagerChanged
+        - event: Unpaused(address)
+          handler: handleUnpaused
+        - event: Upgraded(address indexed)
+          handler: handleUpgraded
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: ipDAI
+    network: rinkeby
+    source:
+      address: "0xB3fBf885c2713537BcB699be129dfc2Ad2DE84b2"
+      abi: LpToken
+      startBlock: 9500000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AppointedToTransferOwnership
+        - Approval
+        - Burn
+        - Mint
+        - OwnershipTransferred
+        - Transfer
+      abis:
+        - name: LpToken
+          file: ./abis/LpToken.json
+      eventHandlers:
+        - event: AppointedToTransferOwnership(indexed address)
+          handler: handleAppointedToTransferOwnership
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: Burn(indexed address,uint256)
+          handler: handleBurn
+        - event: Mint(indexed address,uint256)
+          handler: handleMint
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: MiltonFacadeDataProvider
+    network: rinkeby
+    source:
+      address: "0x1c747AaB5A540Ed17C967A97946B80EB981BF1B5"
+      abi: MiltonFacadeDataProvider
+      startBlock: 9500000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AdminChanged
+        - AppointedToTransferOwnership
+        - BeaconUpgraded
+        - OwnershipTransferred
+        - Upgraded
+      abis:
+        - name: MiltonFacadeDataProvider
+          file: ./abis/MiltonFacadeDataProvider.json
+      eventHandlers:
+        - event: AdminChanged(address,address)
+          handler: handleAdminChanged
+        - event: AppointedToTransferOwnership(indexed address)
+          handler: handleAppointedToTransferOwnership
+        - event: BeaconUpgraded(indexed address)
+          handler: handleBeaconUpgraded
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Upgraded(address indexed)
+          handler: handleUpgraded
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: MiltonSpreadModel
+    network: rinkeby
+    source:
+      address: "0xe368A649B74B65411624Ca96f61298b8A1AD1B2E"
+      abi: MiltonSpreadModel
+      startBlock: 9500000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AppointedToTransferOwnership
+        - OwnershipTransferred
+      abis:
+        - name: MiltonSpreadModel
+          file: ./abis/MiltonSpreadModel.json
+      eventHandlers:
+        - event: AppointedToTransferOwnership(indexed address)
+          handler: handleAppointedToTransferOwnership
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: MiltonStorageDai
+    network: rinkeby
+    source:
+      address: "0x235CADabF141Eb0640dB6428d9fdA6BD1dB2630B"
+      abi: MiltonStorage
+      startBlock: 9500000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AdminChanged
+        - AppointedToTransferOwnership
+        - BeaconUpgraded
+        - JosephChanged
+        - MiltonChanged
+        - OwnershipTransferred
+        - Paused
+        - Unpaused
+        - Upgraded
+      abis:
+        - name: MiltonStorage
+          file: ./abis/MiltonStorage.json
+      eventHandlers:
+        - event: AdminChanged(address,address)
+          handler: handleAdminChanged
+        - event: AppointedToTransferOwnership(indexed address)
+          handler: handleAppointedToTransferOwnership
+        - event: BeaconUpgraded(indexed address)
+          handler: handleBeaconUpgraded
+        - event: JosephChanged(address,address,address)
+          handler: handleJosephChanged
+        - event: MiltonChanged(address,address,address)
+          handler: handleMiltonChanged
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(address)
+          handler: handlePaused
+        - event: Unpaused(address)
+          handler: handleUnpaused
+        - event: Upgraded(address indexed)
+          handler: handleUpgraded
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: MiltonV2Dai
+    network: rinkeby
+    source:
+      address: "0x021b68e559e837D8f10A4f0b1bCe025150fb1497"
+      abi: MiltonV2
+      startBlock: 9500000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AdminChanged
+        - AppointedToTransferOwnership
+        - BeaconUpgraded
+        - CloseSwap
+        - JosephChanged
+        - OpenSwap
+        - OwnershipTransferred
+        - Paused
+        - Unpaused
+        - Upgraded
+      abis:
+        - name: MiltonV2
+          file: ./abis/MiltonV2.json
+      eventHandlers:
+        - event: AdminChanged(address,address)
+          handler: handleAdminChanged
+        - event: AppointedToTransferOwnership(indexed address)
+          handler: handleAppointedToTransferOwnership
+        - event: BeaconUpgraded(indexed address)
+          handler: handleBeaconUpgraded
+        - event: CloseSwap(uint256 indexed,address,uint256,address,uint256,uint256)
+          handler: handleCloseSwap
+        - event: JosephChanged(address,address,address)
+          handler: handleJosephChanged
+        - event: OpenSwap(uint256 indexed,address indexed,address,uint8,tuple(uint256,uint256,uint256,uint256,uint256,uint256,uint256),uint256,uint256,tuple(uint256,uint256,uint256,uint256))
+          handler: handleOpenSwap
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(address)
+          handler: handlePaused
+        - event: Unpaused(address)
+          handler: handleUnpaused
+        - event: Upgraded(address indexed)
           handler: handleUpgraded
       file: ./src/mapping.ts

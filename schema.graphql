@@ -1,6 +1,42 @@
-type ExampleEntity @entity {
+type Account @entity {
   id: ID!
-  count: BigInt!
-  previousAdmin: Bytes! # address
-  newAdmin: Bytes! # address
+  address: String!
+}
+
+type Token @entity {
+  id: ID!
+  name: String!
+  symbol: String!
+  totalSupply: BigInt!
+}
+
+type TokenBalance @entity {
+  id: ID!
+  account: String!
+  token: String!
+  balance: BigInt!
+}
+
+type TokenDayData @entity {
+  id: ID!
+  date: Int!
+  token: String!
+  mintVolume: BigInt!
+  burnVolume: BigInt!
+  transferVolume: BigInt!
+  numHolders: BigInt!
+}
+
+interface TokenEvent {
+  id: ID!
+  token: String!
+}
+
+type TransferEvent implements TokenEvent @entity {
+  id: ID!
+  token: String!
+  from: String!
+  to: String!
+  amount: BigInt!
+  timestamp: BigInt!
 }

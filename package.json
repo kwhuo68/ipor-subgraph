@@ -3,14 +3,19 @@
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
+    "codegen:rinkeby": "npm run yaml:rinkeby && graph codegen",
     "build": "graph build",
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/ kwhuo68/ipor-subgraph",
     "create-local": "graph create --node http://localhost:8020/ kwhuo68/ipor-subgraph",
     "remove-local": "graph remove --node http://localhost:8020/ kwhuo68/ipor-subgraph",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 kwhuo68/ipor-subgraph"
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 kwhuo68/ipor-subgraph",
+    "full-deploy": "npm run codegen && npm run build && npm run deploy",
+    "test": "graph test -v 0.3.0",
+    "test-full": "npm run codegen && npm run build && npm run test"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.26.0",
-    "@graphprotocol/graph-ts": "0.24.1"
+    "@graphprotocol/graph-ts": "0.24.1",
+    "matchstick-as": "0.3.0"
   }
 }
